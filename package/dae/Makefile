@@ -12,7 +12,8 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/daeuniverse/dae.git
 #PKG_SOURCE_URL:=https://github.com/LostAttractor/dae.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) HEAD | cut -c1-7)
+#PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) HEAD | cut -c1-7)
+PKG_SOURCE_VERSION:=v1.0.0
 PKG_MIRROR_HASH:=
 
 PKG_LICENSE:=AGPL-3.0-only
@@ -77,7 +78,7 @@ endef
 
 define Build/Prepare
 	( \
-		rm -rf $(PKG_BUILD_DIR) && git clone $(PKG_SOURCE_URL) $(PKG_BUILD_DIR) && git -C $(PKG_BUILD_DIR) checkout main ; \
+		rm -rf $(PKG_BUILD_DIR) && git clone $(PKG_SOURCE_URL) $(PKG_BUILD_DIR) && git -C $(PKG_BUILD_DIR) checkout $(PKG_SOURCE_VERSION) ; \
 		pushd $(PKG_BUILD_DIR) ; \
 		git submodule update --init ; \
 		go mod tidy ; \
